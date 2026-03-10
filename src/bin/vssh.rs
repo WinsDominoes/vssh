@@ -19,10 +19,13 @@ fn main()
 
         let mut input = String::new();
         stdin().read_line(&mut input).unwrap();
-
-        // Removes the newline character
-        let command = input.trim();
         
+        // Handle empty inputs
+        if input.trim().is_empty()
+        {
+            continue;
+        }
+
         // Tokenizing to get the args
         let mut tokens = input.trim().split_whitespace();
         let cmd = tokens.next().unwrap();
@@ -30,7 +33,7 @@ fn main()
         
         // Match cmds
         match cmd
-        {
+        {   
             // This is for if the cmd is `cd` which is special from other processes.
             "cd" => 
             {
