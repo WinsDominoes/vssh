@@ -6,7 +6,7 @@
  * 
 */
 
-use std::{env, io::{Write, stdin, stdout}, path::Path, process::Command};
+use std::{env, io::{Write, stdin, stdout}, path::Path, process::{Command}};
 
 fn main()
 {
@@ -41,16 +41,20 @@ fn main()
                     eprintln!("{}", e);
                 }
             },
+            "exit" => return,
             cmd =>
             {
                 // Creating child processes from the command
                 let mut child = Command::new(cmd)
                     .args(args)
-                    .spawn()
-                    .unwrap();
-
-                // Wait for command to finish
-                child.wait();
+                    .spawn();
+                    
+                // Handle incorrect user input
+                match child 
+                {
+                    Ok(mut child) => { child.wait(); },
+                    Err(e) => eprintln!("{}", e),
+                }
             }
         }   
     }
