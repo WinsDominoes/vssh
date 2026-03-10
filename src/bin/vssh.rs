@@ -15,7 +15,7 @@ fn main()
         // Displays the current path    
         let current_path = env::current_dir().unwrap();
         print!("{}$ ", current_path.display());
-        stdout().flush();
+        let _ = stdout().flush();
 
         let mut input = String::new();
         stdin().read_line(&mut input).unwrap();
@@ -43,6 +43,7 @@ fn main()
                 {
                     eprintln!("{}", e);
                 }
+                continue;
             },
             "exit" => return,
             cmd =>
@@ -58,7 +59,8 @@ fn main()
                     Ok(mut child) => { child.wait(); },
                     Err(e) => eprintln!("{}", e),
                 }
-            }
+            },
+            // _ => {}
         }   
     }
 }
